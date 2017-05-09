@@ -4,6 +4,14 @@ parameters:
     #parameter_name: value
 
 services:
+  app.form.registration:
+     class: AppBundle\Form\RegistrationType
+     tags:
+         - { name: form.type, alias: app_user_registration }
+  app.event.authentication_success_listener:
+      class: AppBundle\EventListener\AuthenticationSuccessListener
+      tags:
+         - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']

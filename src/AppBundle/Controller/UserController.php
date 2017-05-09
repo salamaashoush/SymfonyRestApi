@@ -7,24 +7,27 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class UserController extends FOSRestController
 {
+    /**
+     * @return array
+     * @View()
+     */
     public function getUsersAction()
     {
         $data = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
-        $view = $this->view($data, 200)
-            ->setTemplate("AppBundle:Users:index.html.twig")
-            ->setTemplateVar('users')
-        ;
-
-        return $this->handleView($view);
+        return ['users'=>$data];
     }
-    public function getUserAction($id){
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
-        if(!is_object($user)){
-            throw $this->createNotFoundException();
-        }
-        return $user;
+
+    /**
+     * @param User $user
+     * @View()
+     * @ParamConverter("user",class="AppBundle:User")
+     * @return array
+     */
+    public function getUserAction(User $user){
+        return ['user'=>$user];
     }
 }

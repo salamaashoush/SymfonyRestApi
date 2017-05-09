@@ -70,13 +70,14 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 fos_rest:
+    disable_csrf_role: ROLE_API
     param_fetcher_listener: true
     body_listener: true
     format_listener: true
     view:
         view_response_listener: 'force'
         formats:
-            xml: true
+            xml: false
             json : true
         templating_formats:
             html: true
@@ -88,11 +89,15 @@ fos_rest:
         default_format: json
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
-    firewall_name: main
+    firewall_name: api
     user_class: AppBundle\Entity\User
     from_email:
-            address: "noreply@yourcompany.com"
-            sender_name: "No Reply"
+          address: "noreply@yourcompany.com"
+          sender_name: "No Reply"
+    registration:
+          form:
+               type: AppBundle\Form\RegistrationType
+
 lexik_jwt_authentication:
     private_key_path: %kernel.root_dir%/../var/jwt/private.pem
     public_key_path:  %kernel.root_dir%/../var/jwt/public.pem
@@ -133,3 +138,13 @@ nelmio_cors:
                 allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
                 max_age: 3600
                 hosts: ['^api\.']
+jms_serializer:
+    metadata:
+        directories:
+            FOSUB:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "%kernel.root_dir%/serializer/FOSUB"
+        auto_detection: true
+#sensio_framework_extra:
+#  view: { annotations: false }
+#  router: { annotations: true }
