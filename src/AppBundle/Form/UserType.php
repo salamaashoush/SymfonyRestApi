@@ -13,7 +13,7 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstname')->add('lastname')->add('trackId')->add('track');
+        $builder->add('firstname')->add('lastname')->add('trackId');
     }
     
     /**
@@ -22,7 +22,8 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\User',
+            'csrf_protection' => false
         ));
     }
 
@@ -34,5 +35,13 @@ class UserType extends AbstractType
         return 'appbundle_user';
     }
 
+    public function getParent()
+    {
+        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+    }
 
+    public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
 }

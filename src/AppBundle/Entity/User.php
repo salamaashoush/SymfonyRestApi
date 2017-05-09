@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -26,6 +27,7 @@ class User extends BaseUser implements JWTUserInterface
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255,nullable = true)
+     * @Assert\NotBlank()
      */
     protected $firstname;
 
@@ -33,6 +35,7 @@ class User extends BaseUser implements JWTUserInterface
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255,nullable = true)
+     * @Assert\NotBlank()
      */
     protected $lastname;
     /**

@@ -13,7 +13,7 @@ class TrackType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('branchId')->add('branch');
+        $builder->add('name')->add('description')->add('branchId');
     }
     
     /**
@@ -22,7 +22,8 @@ class TrackType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Track'
+            'data_class' => 'AppBundle\Entity\Track',
+            'csrf_protection' => false
         ));
     }
 

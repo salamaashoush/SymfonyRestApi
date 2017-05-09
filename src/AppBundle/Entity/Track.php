@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Track
@@ -25,6 +26,7 @@ class Track
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -32,6 +34,7 @@ class Track
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -39,6 +42,7 @@ class Track
      * @var int
      *
      * @ORM\Column(name="branch_id", type="integer")
+     * @Assert\NotBlank()
      */
     private $branchId;
 

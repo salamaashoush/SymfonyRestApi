@@ -2,46 +2,46 @@
 
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Track;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class UserController extends FOSRestController
+class TrackController extends FOSRestController
 {
     /**
      * @return array
      * @View()
      *
      */
-    public function getUsersAction()
+    public function getTracksAction()
     {
-        $data = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        $data = $this->getDoctrine()->getRepository('AppBundle:Track')->findAll();
         return $data;
     }
 
     /**
-     * @param User $user
+     * @param Track $track
      * @return array
      * @View()
-     * @ParamConverter("user",class="AppBundle:User")
+     * @ParamConverter("track",class="AppBundle:Track")
      */
-    public function getUserAction(User $user)
+    public function getTrackAction(Track $track)
     {
-        return $user;
+        return $track;
     }
 
-    public function postUserAction(Request $request)
+    public function postTrackAction(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        $user = new User();
-        $form = $this->createForm('AppBundle\Form\UserType', $user);
+        $track = new Track();
+        $form = $this->createForm('AppBundle\Form\TrackType', $track);
         $form->submit($data);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($branch);
+            $em->persist($track);
             $em->flush();
             return $this->handleView(['Message' => 'Created Successfully', 'Success' => true], Response::HTTP_CREATED);
         }
@@ -50,20 +50,20 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @param User $user
+     * @param Track $track
      * @param Request $request
      * @return array
      * @View()
-     * @ParamConverter("user",class="AppBundle:User")
+     * @ParamConverter("track",class="AppBundle:Track")
      */
-    public function putUserAction(User $user, Request $request)
+    public function putTrackAction(Track $track, Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        $form = $this->createForm('AppBundle\Form\UserType', $user);
+        $form = $this->createForm('AppBundle\Form\TrackType', $track);
         $form->submit($data, false);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
+            $em->persist($track);
             $em->flush();
             return $this->view(['Message' => 'Updated Successfully', 'Success' => true], Response::HTTP_OK);
         }
@@ -72,16 +72,16 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @param User $user
+     * @param Track $track
      * @return array
      * @View()
-     * @ParamConverter("user",class="AppBundle:User")
+     * @ParamConverter("track",class="AppBundle:Track")
      */
-    public function deleteUserAction(User $user)
+    public function deleteTrackAction(Track $track)
     {
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
+        $em->remove($track);
         $em->flush();
         return $this->view(['Message' => 'Deleted Successfully', 'Success' => true], Response::HTTP_OK);
 

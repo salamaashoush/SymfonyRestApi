@@ -7,10 +7,14 @@ app-web:
 api_login:
     path: /api/login
 #REST
-#students:
-#    type:     rest
-#    resource: AppBundle\Controller\StudentController
-#    prefix: /api
+users:
+    type:     rest
+    resource: AppBundle\Controller\Api\UserController
+    prefix: /api
+tracks:
+    type:     rest
+    resource: AppBundle\Controller\Api\TrackController
+    prefix: /api
 branches:
     type:     rest
     resource: AppBundle\Controller\Api\BranchController
