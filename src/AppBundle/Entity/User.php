@@ -35,7 +35,17 @@ class User extends BaseUser implements JWTUserInterface
      * @ORM\Column(name="lastname", type="string", length=255)
      */
     protected $lastname;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="track_id", type="integer",nullable = true)
+     */
+    private $trackId;
+    /**
+     * @ORM\ManyToOne(targetEntity="Track", inversedBy="students")
+     * @ORM\JoinColumn(name="track_id", referencedColumnName="id")
+     */
+    private $track;
 
     public function __construct()
     {
@@ -115,5 +125,53 @@ class User extends BaseUser implements JWTUserInterface
             $payload['roles'], // Added by default
             $payload['email']// Custom
         );
+    }
+
+    /**
+     * Set trackId
+     *
+     * @param integer $trackId
+     *
+     * @return User
+     */
+    public function setTrackId($trackId)
+    {
+        $this->trackId = $trackId;
+
+        return $this;
+    }
+
+    /**
+     * Get trackId
+     *
+     * @return integer
+     */
+    public function getTrackId()
+    {
+        return $this->trackId;
+    }
+
+    /**
+     * Set track
+     *
+     * @param \AppBundle\Entity\Track $track
+     *
+     * @return User
+     */
+    public function setTrack(\AppBundle\Entity\Track $track = null)
+    {
+        $this->track = $track;
+
+        return $this;
+    }
+
+    /**
+     * Get track
+     *
+     * @return \AppBundle\Entity\Track
+     */
+    public function getTrack()
+    {
+        return $this->track;
     }
 }

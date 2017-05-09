@@ -9,13 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class UserController extends FOSRestController
+class StudentController extends FOSRestController
 {
     /**
      * @return array
      * @View()
+     *
      */
-    public function getUsersAction()
+    public function getStudentsAction()
     {
         $data = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
         return ['users'=>$data];
@@ -27,7 +28,7 @@ class UserController extends FOSRestController
      * @ParamConverter("user",class="AppBundle:User")
      * @return array
      */
-    public function getUserAction(User $user){
+    public function getStudentAction(User $user){
         return ['user'=>$user];
     }
 }

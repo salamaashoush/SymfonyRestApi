@@ -2,48 +2,103 @@
 
 namespace AppBundle\Controller;
 
-use Composer\DependencyResolver\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
+use Symfony\Component\Form\FormInterface;
+use JMS\Serializer\SerializationContext;
 
 class SecurityController extends BaseController
 {
 
+    /**
+     * @Route("/api/register", name="user_register")
+     * @Method("POST")
+     * @param Request $request
+     * @return Response|\Symfony\Component\HttpFoundation\Response
+     */
     public function registerAction(Request $request)
     {
+        /** @var \FOS\UserBundle\Form\Factory\FactoryInterface */
+        $formFactory = $this->get('fos_user.registration.form.factory');
+        /** @var \FOS\UserBundle\Model\UserManagerInterface */
+        $userManager = $this->get('fos_user.user_manager');
+        /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
 
-//        $form = $this->container->get('fos_user.registration.form');
-//        $formHandler = $this->container->get('fos_user.registration.form.handler');
-//        $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
-//
-//        $process = $formHandler->process($confirmationEnabled);
-//        if ($process) {
-//            $user = $form->getData();
-//
-//            /*****************************************************
-//             * Add new functionality (e.g. log the registration) *
-//             *****************************************************/
-//            $this->container->get('logger')->info(
-//                sprintf('New user registration: %s', $user)
-//            );
-//
-//            if ($confirmationEnabled) {
-//                $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
-//                $route = 'fos_user_registration_check_email';
-//            } else {
-//                $this->authenticateUser($user);
-//                $route = 'fos_user_registration_confirmed';
-//            }
-//
-//            $this->setFlash('fos_user_success', 'registration.flash.user_created');
-//            $url = $this->container->get('router')->generate($route);
-//
-//            return new RedirectResponse($url);
-//        }
+        $user = $userManager->createUser();
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
 
-//        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.twig', array(
-//            'form' => $form->createView(),
-//        ));
-        return json_decode($request->getContent(), true)
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $form = $formFactory->createForm(array('csrf_protection' => false));
+        $form->setData($user);
+        $this->processForm($request, $form);
+
+        if ($form->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(
+                FOSUserEvents::REGISTRATION_SUCCESS, $event
+            );
+
+            $userManager->updateUser($user);
+
+            $response = new Response($this->serialize('User created.'), Response::HTTP_CREATED);
+        }
+
+        return $this->setBaseHeaders($response);
+    }
+    /**
+     * @param  Request $request
+     * @param  FormInterface $form
+     */
+    private function processForm(Request $request, FormInterface $form)
+    {
+        $data = json_decode($request->getContent(), true);
+        if ($data === null) {
+            throw new BadRequestHttpException();
+        }
+
+        $form->submit($data);
+    }
+
+    /**
+     * Data serializing via JMS serializer.
+     *
+     * @param mixed $data
+     *
+     * @return string JSON string
+     */
+    private function serialize($data)
+    {
+        $context = new SerializationContext();
+        $context->setSerializeNull(true);
+
+        return $this->get('jms_serializer')
+            ->serialize($data, 'json', $context);
+    }
+
+    /**
+     * Set base HTTP headers.
+     *
+     * @param Response $response
+     *
+     * @return Response
+     */
+    private function setBaseHeaders(Response $response)
+    {
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 }

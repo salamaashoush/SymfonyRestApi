@@ -35,7 +35,17 @@ class User extends BaseUser implements JWTUserInterface
      * @ORM\Column(name="lastname", type="string", length=255)
      */
     protected $lastname;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="track_id", type="integer")
+     */
+    private $trackId;
+    /**
+     * @ORM\ManyToOne(targetEntity="Track", inversedBy="students")
+     * @ORM\JoinColumn(name="track_id", referencedColumnName="id")
+     */
+    private $track;
 
     public function __construct()
     {
@@ -117,4 +127,3 @@ class User extends BaseUser implements JWTUserInterface
         );
     }
 }
-
