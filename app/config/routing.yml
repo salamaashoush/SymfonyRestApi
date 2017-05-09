@@ -1,12 +1,19 @@
-app:
-    resource: '@AppBundle/Controller/'
+app-web:
+    resource: '@AppBundle/Controller/Web'
     type: annotation
+#app-api:
+#    resource: '@AppBundle/Controller/Api'
+#    type: annotation
 api_login:
     path: /api/login
 #REST
-users:
+#students:
+#    type:     rest
+#    resource: AppBundle\Controller\StudentController
+#    prefix: /api
+branches:
     type:     rest
-    resource: AppBundle\Controller\UserController
+    resource: AppBundle\Controller\Api\BranchController
     prefix: /api
 
 #fos_user_security:

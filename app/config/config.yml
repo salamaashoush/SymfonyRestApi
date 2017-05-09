@@ -19,7 +19,7 @@ framework:
     csrf_protection:
         enabled: true
     validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    serializer: { enable_annotations: true }
     templating:
         engines: ['twig']
     default_locale: '%locale%'
@@ -72,7 +72,12 @@ swiftmailer:
 fos_rest:
     disable_csrf_role: ROLE_API
     param_fetcher_listener: true
-    body_listener: true
+    body_converter:
+        enabled: true
+        validate: true
+    body_listener:
+        decoders:
+            json: fos_rest.decoder.json
     format_listener: true
     view:
         view_response_listener: 'force'
@@ -102,7 +107,7 @@ lexik_jwt_authentication:
     private_key_path: %kernel.root_dir%/../var/jwt/private.pem
     public_key_path:  %kernel.root_dir%/../var/jwt/public.pem
     pass_phrase:      %jwt_key_pass_phrase%
-    token_ttl:        3600
+    token_ttl:        604800
     token_extractors:
             authorization_header:      # look for a token as Authorization Header
                 enabled: true
@@ -148,3 +153,5 @@ jms_serializer:
 #sensio_framework_extra:
 #  view: { annotations: false }
 #  router: { annotations: true }
+sensio_framework_extra:
+    request: { converters: true }
