@@ -11,8 +11,12 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Route("/{slug}", name="homepage",requirements={"slug":".*"})
+     * @param Request $request
+     * @param null $slug
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,$slug=null)
     {
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
