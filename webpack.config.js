@@ -9,7 +9,8 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, 'web/builds'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: production ? '/builds/' : 'http://localhost:8080/builds/'
     },
     module: {
         loaders: [
@@ -27,6 +28,11 @@ module.exports = {
                 loader: 'url?limit=10000',
             }
         ]
+    },
+    devServer: {
+        hot: true,
+        contentBase: './web/',
+        headers: { "Access-Control-Allow-Origin": "*" }
     },
     devtool: production ? false : '#inline-source-map'
 };
