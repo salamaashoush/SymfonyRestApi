@@ -46,7 +46,7 @@ class BranchController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $em->persist($branch);
             $em->flush();
-            return $this->handleView(['Message' => 'Created Successfully', 'Success' => true], Response::HTTP_CREATED);
+            return $this->view(['Message' => 'Created Successfully', 'Success' => true], Response::HTTP_CREATED);
         }
 
         return $form;

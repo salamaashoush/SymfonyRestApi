@@ -69,9 +69,12 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+
+
+
 fos_rest:
     disable_csrf_role: ROLE_API
-    param_fetcher_listener: true
     body_converter:
         enabled: true
         validate: true
@@ -155,3 +158,18 @@ jms_serializer:
 #  router: { annotations: true }
 sensio_framework_extra:
     request: { converters: true }
+
+endroid_qr_code:
+    size: 300
+    margin: 10
+    foreground_color: { r: 0, g: 0, b: 0 }
+    background_color: { r: 255, g: 255, b: 255 }
+    error_correction_level: high # low, medium, quartile or high
+    encoding: UTF-8
+    label: Scan the code
+    label_font_size: 20
+    label_alignment: left # left, center or right
+    label_margin: { b: 20 }
+    logo_path: '%kernel.root_dir%/../vendor/endroid/qrcode/assets/symfony.png'
+    logo_size: 150
+    validate_result: true # checks if the result is readable
