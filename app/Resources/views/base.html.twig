@@ -3,11 +3,22 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {% if production == true %}
+                {% webpack_entry_css 'main' %}
+            {% endif %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {% if production == true %}
+                {% webpack_entry_js 'vendor' %}
+                {% webpack_entry_js 'main' %}
+            {% else %}
+                    <script src="{{ asset('builds/bundle.js') }}"></script>
+            {% endif %}
+        {% endblock %}
     </body>
 </html>

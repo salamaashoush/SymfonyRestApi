@@ -16,5 +16,4 @@
 /web/bundles/
 .idea/inspectionProfiles/
 node_modules/
-web/builds/
 yarn.lock

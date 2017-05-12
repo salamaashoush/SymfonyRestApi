@@ -2,6 +2,9 @@
 # http://symfony.com/doc/current/service_container.html
 parameters:
     #parameter_name: value
+    webpack.manifest: "%kernel.root_dir%/../web/dist/manifest.json" #should be absolute
+    webpack.public_path_js: /dist/
+    webpack.public_path_css: /dist/
 
 services:
   app.form.registration:
@@ -15,3 +18,12 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+  twig_extension.webpack:
+          class: Fullpipe\TwigWebpackExtension\WebpackExtension
+          public: false
+          arguments:
+              - "%webpack.manifest%"
+              - "%webpack.public_path_js%"
+              - "%webpack.public_path_css%"
+          tags:
+              - { name: twig.extension }

@@ -39,6 +39,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        production: false
 
 # Doctrine Configuration
 doctrine:
@@ -170,6 +172,6 @@ endroid_qr_code:
     label_font_size: 20
     label_alignment: left # left, center or right
     label_margin: { b: 20 }
-    logo_path: '%kernel.root_dir%/../vendor/endroid/qrcode/assets/symfony.png'
+    logo_path: '%kernel.root_dir%/../web/logo.png'
     logo_size: 150
     validate_result: true # checks if the result is readable

@@ -10,6 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/qr")
+     */
+    public function branchesAction()
+    {
+        $qrCode = $this->get('endroid.qrcode.factory')->create('QR Code', ['size' => 500]);
+        return $this->render(':default:qr.html.twig',['qr'=>$qrCode]);
+    }
+    /**
      * @Route("/", name="homepage")
      * @Route("/{slug}", name="homepage",requirements={"slug":".*"})
      * @param Request $request
@@ -23,12 +31,5 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }
-    /**
-     * @Route("/qr")
-     */
-    public function branchesAction()
-    {
-        $qrCode = $this->get('endroid.qrcode.factory')->create('QR Code', ['size' => 500]);
-        return $this->render(':default:qr.html.twig',['qr'=>$qrCode]);
-    }
+
 }
