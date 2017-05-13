@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc520026df0c59e5fde34d196cad9f63",
+    "content-hash": "75686d75f7b845cc9f2c9d69bc6c880c",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1312,16 +1312,16 @@
         },
         {
             "name": "jms/serializer",
-            "version": "1.6.2",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "b8683d206e7297f54034f67a877f966c14dc12ea"
+                "reference": "b5abc84a55d7c7203561b3fd9049acd6859a5b62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/b8683d206e7297f54034f67a877f966c14dc12ea",
-                "reference": "b8683d206e7297f54034f67a877f966c14dc12ea",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/b5abc84a55d7c7203561b3fd9049acd6859a5b62",
+                "reference": "b5abc84a55d7c7203561b3fd9049acd6859a5b62",
                 "shasum": ""
             },
             "require": {
@@ -1360,7 +1360,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -1387,25 +1387,25 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2017-04-17T15:27:46+00:00"
+            "time": "2017-05-10T09:43:46+00:00"
         },
         {
             "name": "jms/serializer-bundle",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "target-dir": "JMS/SerializerBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSerializerBundle.git",
-                "reference": "fdd73dbc8642940084deda2a96fa5db62d0f2384"
+                "reference": "85ee039a2b7f89d77c403e33cee7b43a875c31e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/fdd73dbc8642940084deda2a96fa5db62d0f2384",
-                "reference": "fdd73dbc8642940084deda2a96fa5db62d0f2384",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/85ee039a2b7f89d77c403e33cee7b43a875c31e5",
+                "reference": "85ee039a2b7f89d77c403e33cee7b43a875c31e5",
                 "shasum": ""
             },
             "require": {
-                "jms/serializer": "^1.6",
+                "jms/serializer": "^1.7",
                 "php": ">=5.4.0",
                 "phpoption/phpoption": "^1.1.0",
                 "symfony/framework-bundle": "~2.3|~3.0"
@@ -1432,7 +1432,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
@@ -1442,7 +1442,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache2"
+                "Apache-2.0"
             ],
             "authors": [
                 {
@@ -1459,7 +1459,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2017-04-10T12:31:39+00:00"
+            "time": "2017-05-10T10:17:17+00:00"
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
@@ -1609,105 +1609,6 @@
             "time": "2017-04-14T14:30:20+00:00"
         },
         {
-            "name": "limenius/react-bundle",
-            "version": "v0.12.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Limenius/ReactBundle.git",
-                "reference": "b83e91bc011e7934c5d07a5095cfed5d7d4d7999"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Limenius/ReactBundle/zipball/b83e91bc011e7934c5d07a5095cfed5d7d4d7999",
-                "reference": "b83e91bc011e7934c5d07a5095cfed5d7d4d7999",
-                "shasum": ""
-            },
-            "require": {
-                "limenius/react-renderer": "^0.12.0",
-                "nacmartin/phpexecjs": "^0.8",
-                "php": ">=5.5.0",
-                "symfony/config": "^2.7.0|^3.0.6",
-                "symfony/dependency-injection": "^2.7.0|^3.0.6",
-                "symfony/http-kernel": "^2.7.0|^3.0.6"
-            },
-            "require-dev": {
-                "escapestudios/symfony2-coding-standard": "^2.9",
-                "squizlabs/php_codesniffer": "^2.5",
-                "wimg/php-compatibility": "^7.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Limenius\\ReactBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "nacho",
-                    "email": "nacho@limenius.com"
-                }
-            ],
-            "description": "Client and Server-side react rendering in a Symfony Bundle",
-            "keywords": [
-                "isomorphic",
-                "react"
-            ],
-            "time": "2017-04-08T14:24:55+00:00"
-        },
-        {
-            "name": "limenius/react-renderer",
-            "version": "v0.12.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Limenius/ReactRenderer.git",
-                "reference": "4e7df60ad6b87f4da3bf5f65ccc132417ce7061b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Limenius/ReactRenderer/zipball/4e7df60ad6b87f4da3bf5f65ccc132417ce7061b",
-                "reference": "4e7df60ad6b87f4da3bf5f65ccc132417ce7061b",
-                "shasum": ""
-            },
-            "require": {
-                "nacmartin/phpexecjs": "^0.8",
-                "php": ">=5.5.0",
-                "twig/twig": "^1.20|^2.0"
-            },
-            "require-dev": {
-                "escapestudios/symfony2-coding-standard": "^2.9",
-                "squizlabs/php_codesniffer": "^2.5",
-                "wimg/php-compatibility": "^7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Limenius\\ReactRenderer\\": "src/Limenius/ReactRenderer"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nacho Martin",
-                    "email": "nacho@limenius.com"
-                }
-            ],
-            "description": "Client and Server-side React rendering",
-            "keywords": [
-                "isomorphic",
-                "react",
-                "reactjs",
-                "twig"
-            ],
-            "time": "2017-04-08T14:21:38+00:00"
-        },
-        {
             "name": "monolog/monolog",
             "version": "1.22.1",
             "source": {
@@ -1828,42 +1729,6 @@
                 "enum"
             ],
             "time": "2017-03-26T10:24:21+00:00"
-        },
-        {
-            "name": "nacmartin/phpexecjs",
-            "version": "v0.8.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nacmartin/phpexecjs.git",
-                "reference": "f7f1c99b559ec63b9be37f2c356a21fd4856f726"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nacmartin/phpexecjs/zipball/f7f1c99b559ec63b9be37f2c356a21fd4856f726",
-                "reference": "f7f1c99b559ec63b9be37f2c356a21fd4856f726",
-                "shasum": ""
-            },
-            "require": {
-                "symfony/process": "~2.3|~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Nacmartin\\PhpExecJs": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "nacho",
-                    "email": "nacho@limenius.com"
-                }
-            ],
-            "description": "Run JavaScript code from PHP",
-            "time": "2016-09-28T08:36:23+00:00"
         },
         {
             "name": "namshi/jose",
@@ -2226,16 +2091,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.19",
+            "version": "v5.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "654c4fa3d11448c8005400a244987896243a990a"
+                "reference": "4b019d4c0bd64438c42e4b6b0726085b409be8d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/654c4fa3d11448c8005400a244987896243a990a",
-                "reference": "654c4fa3d11448c8005400a244987896243a990a",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/4b019d4c0bd64438c42e4b6b0726085b409be8d9",
+                "reference": "4b019d4c0bd64438c42e4b6b0726085b409be8d9",
                 "shasum": ""
             },
             "require": {
@@ -2274,20 +2139,20 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2017-04-23T22:28:23+00:00"
+            "time": "2017-05-11T16:21:03+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v3.0.25",
+            "version": "v3.0.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "472b339cf0c82f3a033b29f85d9d9cada3cd1a9c"
+                "reference": "6d6cbe971554f0a2cc84965850481eb04a2a0059"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/472b339cf0c82f3a033b29f85d9d9cada3cd1a9c",
-                "reference": "472b339cf0c82f3a033b29f85d9d9cada3cd1a9c",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/6d6cbe971554f0a2cc84965850481eb04a2a0059",
+                "reference": "6d6cbe971554f0a2cc84965850481eb04a2a0059",
                 "shasum": ""
             },
             "require": {
@@ -2344,7 +2209,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2017-03-21T23:34:44+00:00"
+            "time": "2017-05-11T17:01:57+00:00"
         },
         {
             "name": "sensiolabs/security-checker",

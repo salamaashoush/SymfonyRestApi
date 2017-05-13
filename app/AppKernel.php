@@ -23,7 +23,6 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Endroid\QrCode\Bundle\EndroidQrCodeBundle(),
-            new Limenius\ReactBundle\LimeniusReactBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
