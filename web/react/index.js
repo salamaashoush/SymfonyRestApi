@@ -1,5 +1,8 @@
-/**
- * Created by salamaashoush on 5/10/17.
- */
-import './public/stylesheets/base.scss';
+import React from 'react';
+import {render} from 'react-dom';
+import routes from "./routes";
 
+render(
+    routes,
+    document.getElementById('root')
+);

@@ -26,7 +26,10 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: "babel-loader"
+                loader: "babel-loader",
+                query: {
+                    presets:[ 'latest', 'react', 'stage-2' ]
+                }
             },
             {test: /\.s[ac]ss$/, use: ExtractTextPlugin.extract({
                 use:['css-loader','sass-loader'],
