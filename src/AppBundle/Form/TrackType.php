@@ -13,7 +13,7 @@ class TrackType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('branchId');
+        $builder->add('name')->add('description')->add('branch_id',null,['property_path'=>'branchId']);
     }
     
     /**

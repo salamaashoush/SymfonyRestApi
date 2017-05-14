@@ -4,7 +4,9 @@
 import React from 'react';
 import {jsonServerRestClient,fetchUtils, Admin, Resource, Delete} from 'admin-on-rest';
 import { BranchList, BranchEdit, BranchCreate } from './Branches';
-import BranchIcon from 'material-ui/svg-icons/action/book';
+import { TrackList, TrackEdit, TrackCreate } from './Tracks';
+import BranchesIcon from 'material-ui/svg-icons/action/book';
+import TracksIcon from 'material-ui/svg-icons/action/book';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import authClient from '../auth/authClient';
 
@@ -33,7 +35,8 @@ class AdminPage extends React.Component {
     render(){
         return(
             <Admin authClient={authClient} dashboard={Dashboard} restClient={restClient}>
-                <Resource name="branches" list={BranchList} edit={BranchEdit} create={BranchCreate} remove={Delete} icon={BranchIcon}/>
+                <Resource name="branches" list={BranchList} edit={BranchEdit} create={BranchCreate} remove={Delete} icon={BranchesIcon}/>
+                <Resource name="tracks" list={TrackList} edit={TrackEdit} create={TrackCreate} remove={Delete} icon={TracksIcon}/>
             </Admin>
         );
     }

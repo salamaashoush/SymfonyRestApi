@@ -3,23 +3,40 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\Track;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class TrackController extends FOSRestController
 {
     /**
+     * @param ParamFetcherInterface $paramFetcher
      * @return array
-     * @View()
-     *
+     * @Annotations\QueryParam(name="_sort", nullable=true, description="Sort field.")
+     * @Annotations\QueryParam(name="_order", nullable=true, description="Sort Order.")
+     * @Annotations\QueryParam(name="_start", nullable=true, description="Start.")
+     * @Annotations\QueryParam(name="_end", nullable=true, description="End.")
      */
-    public function getTracksAction()
+    public function getTracksAction(ParamFetcherInterface $paramFetcher)
     {
-        $data = $this->getDoctrine()->getRepository('AppBundle:Track')->findAll();
-        return $data;
+        $sort=$paramFetcher->get('_sort');
+        $order=$paramFetcher->get('_order');
+        $start=$paramFetcher->get('_start');
+        $end=$paramFetcher->get('_end');
+        $query = $this->getDoctrine()
+            ->getRepository('AppBundle:Track')
+            ->findAllQuery($sort,$order,$start,$end);
+        $paginator = new Paginator($query);
+        $total = $paginator->count();
+        $result= $query->getResult();
+        return $this->handleView($this->view($result,200)
+            ->setHeader('Access-Control-Expose-Headers','X-Total-Count')
+            ->setHeader('X-Total-Count',$total));
     }
 
     /**
@@ -41,9 +58,13 @@ class TrackController extends FOSRestController
         $form->submit($data);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $track->setBranch($this->getDoctrine()
+                ->getRepository('AppBundle:Branch')
+                ->find($form['branch_id']->getData())
+            );
             $em->persist($track);
             $em->flush();
-            return $this->handleView(['Message' => 'Created Successfully', 'Success' => true], Response::HTTP_CREATED);
+            return $this->view(['Message' => 'Created Successfully', 'Success' => true], Response::HTTP_CREATED);
         }
 
         return $form;
@@ -60,9 +81,18 @@ class TrackController extends FOSRestController
     {
         $data = json_decode($request->getContent(), true);
         $form = $this->createForm('AppBundle\Form\TrackType', $track);
+        unset($data['id']);
+        unset($data['branch']);
+        unset($data['rules']);
+        unset($data['students']);
+
         $form->submit($data, false);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $track->setBranch($this->getDoctrine()
+                ->getRepository('AppBundle:Branch')
+                ->find($form['branch_id']->getData())
+            );
             $em->persist($track);
             $em->flush();
             return $this->view(['Message' => 'Updated Successfully', 'Success' => true], Response::HTTP_OK);
