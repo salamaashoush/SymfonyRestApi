@@ -14,6 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Track
 {
     /**
+     * Many Tracks have Many Rules.
+     *  @ORM\ManyToMany(targetEntity="Rule", inversedBy="tracks")
+     *  @ORM\JoinTable(name="tracks_rules")
+     */
+    private $rules;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -119,6 +126,7 @@ class Track
     public function __construct()
     {
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->rules =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
