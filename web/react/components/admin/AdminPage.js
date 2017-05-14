@@ -2,11 +2,22 @@
  * Created by salamaashoush on 5/10/17.
  */
 import React from 'react';
-import {jsonServerRestClient, Admin, Resource, Delete} from 'admin-on-rest';
+import {jsonServerRestClient,fetchUtils, Admin, Resource, Delete} from 'admin-on-rest';
 import { BranchList, BranchEdit, BranchCreate } from './Branches';
 import BranchIcon from 'material-ui/svg-icons/action/book';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
+import authClient from '../auth/authClient';
 
+
+const httpClient = (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    const token = localStorage.getItem('token');
+    options.headers.set('Authorization', `JWT ${token}`);
+    return fetchUtils.fetchJson(url, options);
+}
+const restClient = jsonServerRestClient('http://localhost:8000/api', httpClient);
 class Dashboard extends React.Component{
     render(){
         return(
@@ -21,7 +32,7 @@ class Dashboard extends React.Component{
 class AdminPage extends React.Component {
     render(){
         return(
-            <Admin dashboard={Dashboard} restClient={jsonServerRestClient('http://localhost:8000/api')}>
+            <Admin authClient={authClient} dashboard={Dashboard} restClient={restClient}>
                 <Resource name="branches" list={BranchList} edit={BranchEdit} create={BranchCreate} remove={Delete} icon={BranchIcon}/>
             </Admin>
         );
