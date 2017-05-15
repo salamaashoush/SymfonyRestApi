@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RulesType extends AbstractType
+class RuleType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -22,7 +22,7 @@ class RulesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Rules'
+            'data_class' => 'AppBundle\Entity\Rule'
         ));
     }
 
@@ -31,7 +31,7 @@ class RulesType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_rules';
+        return 'appbundle_rule';
     }
 
 

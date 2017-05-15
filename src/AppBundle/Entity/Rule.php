@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Rules
+ * Rule
  *
- * @ORM\Table(name="rules")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\RulesRepository")
+ * @ORM\Table(name="rule")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RuleRepository")
  */
-class Rules
+class Rule
 {
     /**
      * @var int
@@ -51,7 +51,7 @@ class Rules
      *
      * @param string $abscenceStatus
      *
-     * @return Rules
+     * @return Rule
      */
     public function setAbscenceStatus($abscenceStatus)
     {
@@ -75,7 +75,7 @@ class Rules
      *
      * @param float $rate
      *
-     * @return Rules
+     * @return Rule
      */
     public function setRate($rate)
     {

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\Rules;
+use AppBundle\Entity\Rule;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -40,12 +40,12 @@ class RulesController extends FOSRestController
     }
 
     /**
-     * @param Rules $rule
+     * @param Rule $rule
      * @return array
      * @View()
      * @ParamConverter("rule",class="AppBundle:Rules")
      */
-    public function putRuleAction(Request $request, Rules $rule)
+    public function putRuleAction(Request $request, Rule $rule)
     {
         $data = json_decode($request->getContent(), true);
         $form = $this->createForm('AppBundle\Form\RulesType', $rule);
@@ -61,12 +61,12 @@ class RulesController extends FOSRestController
     }
 
     /**
-     * @param Rules $rule
+     * @param Rule $rule
      * @return array
      * @View()
      * @ParamConverter("rule",class="AppBundle:Rules")
      */
-    public function deleteRuleAction(Rules $rule)
+    public function deleteRuleAction(Rule $rule)
     {
       $em = $this->getDoctrine()->getManager();
       $em->remove($rule);
