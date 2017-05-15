@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class TrackRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllQuery($sort = null,$order = null,$start = 0,$end = 10)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('t')
+            ->from('AppBundle:Track', 't');
+        if ($sort && $order) {
+            $qb->orderBy('t.' . $sort, $order);
+        }
+        $query = $qb->getQuery();
+        $query->setFirstResult($start)
+            ->setMaxResults($end);
+        return $query;
+    }
 }
