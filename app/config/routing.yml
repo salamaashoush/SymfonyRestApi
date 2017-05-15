@@ -1,7 +1,3 @@
-app_rules:
-    resource: "@AppBundle/Controller/RulesController.php"
-    type:     annotation
-
 
 #app-api:
 #    resource: '@AppBundle/Controller/Api'
@@ -20,6 +16,14 @@ tracks:
 branches:
     type:     rest
     resource: AppBundle\Controller\Api\BranchController
+    prefix: /api
+rules:
+    type:     rest
+    resource: AppBundle\Controller\Api\RuleController
+    prefix: /api
+attendance:
+    type:     rest
+    resource: AppBundle\Controller\Api\AttendanceController
     prefix: /api
 
 #fos_user_security:

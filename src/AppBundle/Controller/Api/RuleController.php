@@ -12,13 +12,13 @@ use FOS\RestBundle\Controller\Annotations;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
-class RulesController extends FOSRestController
+class RuleController extends FOSRestController
 {
 
     public function getRulesAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $rules = $em->getRepository('AppBundle:Rules')->findAll();
+        $rules = $em->getRepository('AppBundle:Rule')->findAll();
         return $rules;
     }
 
@@ -36,19 +36,20 @@ class RulesController extends FOSRestController
             $em->flush();
             return $this->view(['Message' => 'Rule Created Successfully', 'Success' => true], Response::HTTP_CREATED);
         }
-        return $form
+        return $form;
     }
 
     /**
+     * @param Request $request
      * @param Rule $rule
      * @return array
      * @View()
-     * @ParamConverter("rule",class="AppBundle:Rules")
+     * @ParamConverter("rule",class="AppBundle:Rule")
      */
     public function putRuleAction(Request $request, Rule $rule)
     {
         $data = json_decode($request->getContent(), true);
-        $form = $this->createForm('AppBundle\Form\RulesType', $rule);
+        $form = $this->createForm('AppBundle\Form\RuleType', $rule);
         $form->submit($data,false);
 
         if ($form->isValid()) {
