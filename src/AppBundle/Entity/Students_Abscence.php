@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * Students_Abscence
@@ -27,25 +29,40 @@ class Students_Abscence
      * @ORM\Column(name="abscence_date", type="datetime")
      */
     private $abscenceDate;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="user_id", type="integer",nullable = true)
+     */
+    private $userId;
     /**
     * One user has One attendace record per day.
-    * @ORM\@OneToOne(targetEntity="User")
+    * @OneToOne(targetEntity="User")
     * @JoinColumn(name="user_id", referencedColumnName="id")
     */
     private $user;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="track_id", type="integer",nullable = true)
+     */
+    private $trackId;
     /**
     * One user has One attendace record per day in a certain track.
-    * @ORM\@OneToOne(targetEntity="Track")
+    * @OneToOne(targetEntity="Track")
     * @JoinColumn(name="track_id", referencedColumnName="id")
     */
     private $track;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="rule_id", type="integer",nullable = true)
+     */
+    private $ruleId;
     /**
     * One user has One abscence status from thr rules table.
-    * @ORM\@OneToOne(targetEntity="Rules")
-    * @JoinColumn(name="Rule_id", referencedColumnName="id")
+    * @OneToOne(targetEntity="Rule")
+    * @JoinColumn(name="rule_id", referencedColumnName="id")
     */
     private $rule;
 
@@ -134,11 +151,11 @@ class Students_Abscence
     /**
      * Set rule
      *
-     * @param \AppBundle\Entity\Rules $rule
+     * @param \AppBundle\Entity\Rule $rule
      *
      * @return Students_Abscence
      */
-    public function setRule(\AppBundle\Entity\Rules $rule = null)
+    public function setRule(\AppBundle\Entity\Rule $rule = null)
     {
         $this->rule = $rule;
 
@@ -148,7 +165,7 @@ class Students_Abscence
     /**
      * Get rule
      *
-     * @return \AppBundle\Entity\Rules
+     * @return \AppBundle\Entity\Rule
      */
     public function getRule()
     {

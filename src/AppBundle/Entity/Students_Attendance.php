@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * Students_Attendance
@@ -34,17 +36,27 @@ class Students_Attendance
      * @ORM\Column(name="arrival_time", type="datetime", nullable=true)
      */
     private $arrivalTime;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="user_id", type="integer",nullable = true)
+     */
+    private $userId;
     /**
     * One user has One attendace record per day.
     * @OneToOne(targetEntity="User")
     * @JoinColumn(name="user_id", referencedColumnName="id")
     */
     private $user;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="track_id", type="integer",nullable = true)
+     */
+    private $trackId;
     /**
     * One user has One attendace record per day in a certain track.
-    * @ORM\@OneToOne(targetEntity="Track")
+    * @OneToOne(targetEntity="Track")
     * @JoinColumn(name="track_id", referencedColumnName="id")
     */
     private $track;

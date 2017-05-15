@@ -2,8 +2,12 @@
 
 namespace AppBundle\Controller\Api;
 
+<<<<<<< HEAD
 use AppBundle\Entity\Rules;
 use AppBundle\Entity\Students_Attendance;
+=======
+use AppBundle\Entity\Rule;
+>>>>>>> 2c200b14e80a4fa3ef6bddd84a46f3451103a2d7
 use FOS\RestBundle\Controller\FOSRestController;
 
 class AttendanceController extends FOSRestController
