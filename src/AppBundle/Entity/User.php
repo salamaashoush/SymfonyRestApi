@@ -15,13 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User extends BaseUser implements JWTUserInterface
 {
     /**
-     * Many Users have Many Rules.
-     *  @ORM\ManyToMany(targetEntity="Rule", inversedBy="users")
-     *  @ORM\JoinTable(name="users_rules")
-     */
-    private $rules;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")

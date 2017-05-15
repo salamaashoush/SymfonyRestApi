@@ -1,3 +1,7 @@
+app_rules:
+    resource: "@AppBundle/Controller/RulesController.php"
+    type:     annotation
+
 
 #app-api:
 #    resource: '@AppBundle/Controller/Api'
