@@ -2,21 +2,24 @@
 
 namespace AppBundle\Controller\Api;
 
-<<<<<<< HEAD
-use AppBundle\Entity\Rules;
 use AppBundle\Entity\Students_Attendance;
-=======
 use AppBundle\Entity\Rule;
->>>>>>> 2c200b14e80a4fa3ef6bddd84a46f3451103a2d7
+use AppBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Request;
 
 class AttendanceController extends FOSRestController
 {
-  public function postStudentAttendanceAction(Request $request)
+  /**
+   * @param User $student
+   * @param Request $request
+   * @return array
+   */
+  public function postStudentAttendanceAction(User $student,Request $request)
   {
       $user = $this->getUser();
       $user_id = $user->getId();
-      $trackId = $user->getTrackId()
+      $trackId = $user->getTrackId();
       $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Attendance');
       $student = $repository->findOneBy(array('user_id' =>$user_id, 'track_id' => $trackId));
       if($student)
