@@ -83,7 +83,6 @@ class TrackController extends FOSRestController
         $form = $this->createForm('AppBundle\Form\TrackType', $track);
         unset($data['id']);
         unset($data['branch']);
-        unset($data['rules']);
         unset($data['students']);
 
         $form->submit($data, false);

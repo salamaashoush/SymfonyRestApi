@@ -119,7 +119,6 @@ class Track
     public function __construct()
     {
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->rules =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

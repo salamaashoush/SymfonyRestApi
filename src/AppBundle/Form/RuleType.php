@@ -13,7 +13,7 @@ class RuleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('abscenceStatus')->add('rate');
+        $builder->add('absenceStatus')->add('rate');
     }
     
     /**

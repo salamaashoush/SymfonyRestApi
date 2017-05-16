@@ -24,14 +24,14 @@ class Rule
     /**
      * @var string
      *
-     * @ORM\Column(name="Abscence_Status", type="string", length=255)
+     * @ORM\Column(name="absence_status", type="string", length=255)
      */
-    private $abscenceStatus;
+    private $absenceStatus;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="Rate", type="float")
+     * @ORM\Column(name="rate", type="float")
      */
     private $rate;
 

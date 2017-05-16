@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class RuleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllQuery($sort = null,$order = null,$start = 0,$end = 10)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('r')
+            ->from('AppBundle:Rule', 'r');
+        if ($sort && $order) {
+            $qb->orderBy('r.' . $sort, $order);
+        }
+        $query = $qb->getQuery();
+        $query->setFirstResult($start)
+            ->setMaxResults($end);
+        return $query;
+    }
 }
