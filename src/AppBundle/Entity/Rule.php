@@ -94,4 +94,3 @@ class Rule
         return $this->rate;
     }
 }
-

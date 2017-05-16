@@ -28,7 +28,7 @@ class Students_Attendance
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
      */
-    private $status;
+    private $status=-1;
 
     /**
      * @var \DateTime
@@ -56,7 +56,7 @@ class Students_Attendance
     private $trackId;
     /**
     * One user has One attendace record per day in a certain track.
-    * @OneToOne(targetEntity="Track")
+    * @ORM\ManyToOne(targetEntity="Track")
     * @JoinColumn(name="track_id", referencedColumnName="id")
     */
     private $track;

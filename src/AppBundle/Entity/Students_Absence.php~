@@ -3,14 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * Students_Absence
  *
  * @ORM\Table(name="students__absence")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Students_AbscenceRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Students_AbsenceRepository")
  */
 class Students_Absence
 {
@@ -26,45 +24,46 @@ class Students_Absence
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="absence_date", type="datetime")
+     * @ORM\Column(name="date", type="datetime")
      */
-    private $abscenceDate;
+    private $date;
+
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer",nullable = true)
+     * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;
     /**
-    * One user has One attendace record per day.
-    * @OneToOne(targetEntity="User")
-    * @JoinColumn(name="user_id", referencedColumnName="id")
-    */
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
     private $user;
+
     /**
      * @var int
      *
-     * @ORM\Column(name="track_id", type="integer",nullable = true)
+     * @ORM\Column(name="track_id", type="integer")
      */
     private $trackId;
     /**
-    * One user has One attendace record per day in a certain track.
-    * @OneToOne(targetEntity="Track")
-    * @JoinColumn(name="track_id", referencedColumnName="id")
-    */
+     * @ORM\OneToOne(targetEntity="Track")
+     * @ORM\JoinColumn(name="track_id", referencedColumnName="id")
+     */
     private $track;
+
     /**
      * @var int
      *
-     * @ORM\Column(name="rule_id", type="integer",nullable = true)
+     * @ORM\Column(name="rule_id", type="integer")
      */
     private $ruleId;
     /**
-    * One user has One absence status from thr rules table.
-    * @OneToOne(targetEntity="Rule")
-    * @JoinColumn(name="rule_id", referencedColumnName="id")
-    */
+     * @ORM\OneToOne(targetEntity="Rule")
+     * @ORM\JoinColumn(name="rule_id", referencedColumnName="id")
+     */
     private $rule;
+
 
     /**
      * Get id
@@ -77,99 +76,99 @@ class Students_Absence
     }
 
     /**
-     * Set absenceDate
+     * Set date
      *
-     * @param $absenceDate
+     * @param \DateTime $date
+     *
      * @return Students_Absence
-     * @internal param \DateTime $absenceDate
-     *
      */
-    public function setAbsenceDate($absenceDate)
+    public function setDate($date)
     {
-        $this->absenceDate = $absenceDate;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get absenceDate
+     * Get date
      *
      * @return \DateTime
      */
-    public function getAbsenceDate()
+    public function getDate()
     {
-        return $this->absenceDate;
+        return $this->date;
     }
 
     /**
-     * Set track
+     * Set userId
      *
-     * @param \AppBundle\Entity\Track $track
+     * @param integer $userId
      *
-     * @return Students_Abscence
+     * @return Students_Absence
      */
-    public function setTrack(\AppBundle\Entity\Track $track = null)
+    public function setUserId($userId)
     {
-        $this->track = $track;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get track
+     * Get userId
      *
-     * @return \AppBundle\Entity\Track
+     * @return int
      */
-    public function getTrack()
+    public function getUserId()
     {
-        return $this->track;
+        return $this->userId;
     }
 
     /**
-     * Set user
+     * Set trackId
      *
-     * @param \AppBundle\Entity\User $user
+     * @param integer $trackId
      *
-     * @return Students_Abscence
+     * @return Students_Absence
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setTrackId($trackId)
     {
-        $this->user = $user;
+        $this->trackId = $trackId;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get trackId
      *
-     * @return \AppBundle\Entity\User
+     * @return int
      */
-    public function getUser()
+    public function getTrackId()
     {
-        return $this->user;
+        return $this->trackId;
     }
 
     /**
-     * Set rule
+     * Set ruleId
      *
-     * @param \AppBundle\Entity\Rule $rule
+     * @param integer $ruleId
      *
-     * @return Students_Abscence
+     * @return Students_Absence
      */
-    public function setRule(\AppBundle\Entity\Rule $rule = null)
+    public function setRuleId($ruleId)
     {
-        $this->rule = $rule;
+        $this->ruleId = $ruleId;
 
         return $this;
     }
 
     /**
-     * Get rule
+     * Get ruleId
      *
-     * @return \AppBundle\Entity\Rule
+     * @return int
      */
-    public function getRule()
+    public function getRuleId()
     {
-        return $this->rule;
+        return $this->ruleId;
     }
 }
+
