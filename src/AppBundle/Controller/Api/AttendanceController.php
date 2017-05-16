@@ -6,8 +6,11 @@ use AppBundle\Entity\Students_Attendance;
 use AppBundle\Entity\Students_Abscence;
 use AppBundle\Entity\Rule;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Track;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use \Datetime;
 
 class AttendanceController extends FOSRestController
 {
@@ -17,29 +20,36 @@ class AttendanceController extends FOSRestController
    */
   public function postStudentAttendanceAction(Request $request)
   {
-      $user = $this->getUser();
+      $user = $this->get('security.token_storage')->getToken()->getUser();
       $user_id = $user->getId();
       $trackId = $user->getTrackId();
       $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Attendance');
-      $student = $repository->findOneBy(array('user_id' =>$user_id, 'track_id' => $trackId));
-      if($student)
+      $student = $repository->findOneBy(array('userId' =>$user_id, 'trackId' => $trackId));
+      if(!$student)
       {
         $studentAttendance = new Students_Attendance();
         $Latedate = new DateTime();
-        $Latedate->setTime(9,15);
-        $Abscencedate = new DateTime();
-        $Abscencedate->setTime(10,30);
+        $Latedate->setTime(15,15);
+        $Absencedate = new DateTime();
+        $Absencedate->setTime(10,30);
         $currentDate = new DateTime();
-        if ($Latedate <= $currentDate)
+        /*dump( $Latedate);
+        dump( $currentDate);
+        dump($currentDate <= $Latedate);
+        dump($currentDate >= $Latedate && $currentDate <= $Absencedate);
+        die();*/
+        if ($currentDate <= $Latedate)
         {
            $studentAttendance->setStatus(1);
-        }elseif ($Latedate >= $currentDate && $Abscencedate <= $currentDate)
+        }elseif ($currentDate >= $Latedate && $currentDate <= $Absencedate)
         {
           $studentAttendance->setStatus(0);
         }
         $studentAttendance->setArrivalTime(new \DateTime());
-        $studentAttendance->setTrack($trackId);
-        $studentAttendance->setUser($user_id);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Track');
+        $track = $repository->findOneById($trackId);
+        $studentAttendance->setTrack($track);
+        $studentAttendance->setUser($user);
         $em = $this->getDoctrine()->getManager();
         $em->persist($studentAttendance);
         $em->flush();
