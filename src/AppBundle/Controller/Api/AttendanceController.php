@@ -84,7 +84,7 @@ class AttendanceController extends FOSRestController
     return $this->view(['Message' => 'your permission Submitted Successfully', 'Success' => true], Response::HTTP_CREATED);
   }
 
-  
+
 
   public function getStudentAttendanceAction(Request $request,$trackID)
   {
