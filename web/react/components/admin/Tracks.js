@@ -23,12 +23,12 @@ export const TrackList = (props) => (
     </List>
 );
 
-const BranchTitle = ({ record }) => {
+const TrackTitle = ({ record }) => {
     return <span>Track {record ? `"${record.name}"` : ''}</span>;
 };
 
 export const TrackEdit = (props) => (
-    <Edit title={<BranchTitle />} {...props}>
+    <Edit title={<TrackTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="name" />

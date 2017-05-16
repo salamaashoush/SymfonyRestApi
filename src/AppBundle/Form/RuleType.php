@@ -13,7 +13,7 @@ class RuleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('absenceStatus')->add('rate');
+        $builder->add('absence_status',null,['property_path'=>'absenceStatus'])->add('rate');
     }
     
     /**
@@ -22,7 +22,8 @@ class RuleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Rule'
+            'data_class' => 'AppBundle\Entity\Rule',
+            'csrf_protection' => false
         ));
     }
 

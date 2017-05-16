@@ -50,7 +50,7 @@ class AttendanceController extends FOSRestController
       }
   }
 
-  public function postStudentPermission(User $student,$permissonStatus,$permissiondate,Request $request){
+  public function postStudentPermissionAction(User $student,$permissonStatus,$permissiondate,Request $request){
     $user_id = $student->getId();
     $trackId = $student->getTrackId();
     $studentAbscence = new Students_Abscence();
@@ -60,17 +60,17 @@ class AttendanceController extends FOSRestController
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Abscence');
     if ($permissonStatus == "Absent")
     {
-      $rule = $repository->findOneBy('Abscence_Status' =>'Abscence With Permission');
+      $rule = $repository->findOneBy(array('absence_status' =>'Absence With Permission'));
       $ruleid = $rule->getId();
     }elseif ($permissonStatus == "Late"){
-      $rule = $repository->findOneBy('Abscence_Status' =>'Late With Permission');
+      $rule = $repository->findOneBy(array('absence_status' =>'Late With Permission'));
       $ruleid = $rule->getId();
     }else {
       $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Attendance');
       $student = $repository->findOneBy(array('user_id' =>$user_id, 'track_id' => $trackId, 'status' => 1,'arrival_time'=>$permissiondate));
       if($student)
       {
-        $rule = $repository->findOneBy('Abscence_Status' =>'Leave With Permission');
+        $rule = $repository->findOneBy(array('absence_status' =>'Leave With Permission'));
         $ruleid = $rule->getId();
       }else {
           return $this->view(['Message' => 'you can not have a leave permission','Success' => false], Response::HTTP_NOT_ACCEPTABLE);
@@ -85,16 +85,20 @@ class AttendanceController extends FOSRestController
   }
 
 
-
-  public function getStudentAttendanceAction(Request $request,$trackID)
+  public function getStudentAttendanceAction(Request $request,$trackId)
   {
-    // return only late or absent students
+    $user = $this->getUser();
+    $user_id = $user->getId();
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Attendance');
-    $students = $repository->findBy(array('track_id' => $trackId));
-    return $students;
+    $query = $repository->createQueryBuilder('p')->where("p.user_id = ".$user_id)
+    ->andWhere("p.track_id = ".$trackId)
+    ->andWhere("p.status != 1")
+    ->getQuery();
+    $AbsentStudents = $query->getResult();
+
   }
 
-  public function postStudentsAbscencePermissions(Request $request)
+  public function postStudentsAbsenceAction(Request $request)
   {
 
   }

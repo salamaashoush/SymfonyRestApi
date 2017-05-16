@@ -7,12 +7,12 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OneToOne;
 
 /**
- * Students_Abscence
+ * Students_Absence
  *
- * @ORM\Table(name="students__abscence")
+ * @ORM\Table(name="students__absence")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Students_AbscenceRepository")
  */
-class Students_Abscence
+class Students_Absence
 {
     /**
      * @var int
@@ -26,7 +26,7 @@ class Students_Abscence
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="abscence_date", type="datetime")
+     * @ORM\Column(name="absence_date", type="datetime")
      */
     private $abscenceDate;
     /**
@@ -60,7 +60,7 @@ class Students_Abscence
      */
     private $ruleId;
     /**
-    * One user has One abscence status from thr rules table.
+    * One user has One absence status from thr rules table.
     * @OneToOne(targetEntity="Rule")
     * @JoinColumn(name="rule_id", referencedColumnName="id")
     */
@@ -77,27 +77,28 @@ class Students_Abscence
     }
 
     /**
-     * Set abscenceDate
+     * Set absenceDate
      *
-     * @param \DateTime $abscenceDate
+     * @param $absenceDate
+     * @return Students_Absence
+     * @internal param \DateTime $absenceDate
      *
-     * @return Students_Abscence
      */
-    public function setAbscenceDate($abscenceDate)
+    public function setAbsenceDate($absenceDate)
     {
-        $this->abscenceDate = $abscenceDate;
+        $this->absenceDate = $absenceDate;
 
         return $this;
     }
 
     /**
-     * Get abscenceDate
+     * Get absenceDate
      *
      * @return \DateTime
      */
-    public function getAbscenceDate()
+    public function getAbsenceDate()
     {
-        return $this->abscenceDate;
+        return $this->absenceDate;
     }
 
     /**

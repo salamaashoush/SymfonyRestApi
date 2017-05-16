@@ -19,12 +19,12 @@ export const RuleList = (props) => (
     </List>
 );
 
-const BranchTitle = ({ record }) => {
+const RuleTitle = ({ record }) => {
     return <span>Rule {record ? `"${record.absence_status}"` : ''}</span>;
 };
 
 export const RuleEdit = (props) => (
-    <Edit title={<BranchTitle />} {...props}>
+    <Edit title={<RuleTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="absence_status" />

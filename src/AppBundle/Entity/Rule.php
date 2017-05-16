@@ -49,13 +49,13 @@ class Rule
     /**
      * Set abscenceStatus
      *
-     * @param string $abscenceStatus
+     * @param string $absenceStatus
      *
      * @return Rule
      */
-    public function setAbscenceStatus($abscenceStatus)
+    public function setAbsenceStatus($absenceStatus)
     {
-        $this->abscenceStatus = $abscenceStatus;
+        $this->absenceStatus = $absenceStatus;
 
         return $this;
     }
@@ -65,9 +65,9 @@ class Rule
      *
      * @return string
      */
-    public function getAbscenceStatus()
+    public function getAbsenceStatus()
     {
-        return $this->abscenceStatus;
+        return $this->absenceStatus;
     }
 
     /**
