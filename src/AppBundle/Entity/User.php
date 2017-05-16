@@ -49,6 +49,17 @@ class User extends BaseUser implements JWTUserInterface
      * @ORM\JoinColumn(name="track_id", referencedColumnName="id")
      */
     private $track;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="branch_id", type="integer",nullable = true)
+     */
+    private $branchId;
+    /**
+     * @ORM\ManyToOne(targetEntity="Branch", inversedBy="students")
+     * @ORM\JoinColumn(name="branch_id", referencedColumnName="id")
+     */
+    private $branch;
 
     public function __construct()
     {
@@ -177,5 +188,53 @@ class User extends BaseUser implements JWTUserInterface
     public function getTrack()
     {
         return $this->track;
+    }
+
+    /**
+     * Set branchId
+     *
+     * @param integer $branchId
+     *
+     * @return User
+     */
+    public function setBranchId($branchId)
+    {
+        $this->branchId = $branchId;
+
+        return $this;
+    }
+
+    /**
+     * Get branchId
+     *
+     * @return integer
+     */
+    public function getBranchId()
+    {
+        return $this->branchId;
+    }
+
+    /**
+     * Set branch
+     *
+     * @param \AppBundle\Entity\Branch $branch
+     *
+     * @return User
+     */
+    public function setBranch(\AppBundle\Entity\Branch $branch = null)
+    {
+        $this->branch = $branch;
+
+        return $this;
+    }
+
+    /**
+     * Get branch
+     *
+     * @return \AppBundle\Entity\Branch
+     */
+    public function getBranch()
+    {
+        return $this->branch;
     }
 }

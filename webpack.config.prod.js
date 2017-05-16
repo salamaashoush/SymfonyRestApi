@@ -31,10 +31,15 @@ module.exports = {
                     presets:[ 'latest', 'react', 'stage-2' ]
                 }
             },
-            {test: /\.s[ac]ss$/, use: ExtractTextPlugin.extract({
+            {test: /\.scss$/, use: ExtractTextPlugin.extract({
                 use:['css-loader','sass-loader'],
                 fallback:['style-loader']
                 })
+            },
+            {test: /\.css$/, use: ExtractTextPlugin.extract({
+                use:['css-loader'],
+                fallback:['style-loader']
+            })
             },
             {
                 test:   /\.(png|gif|jpe?g|svg?(\?v=[0-9]\.[0-9]\.[0-9])?)$/i,

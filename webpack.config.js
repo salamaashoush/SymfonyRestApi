@@ -17,9 +17,7 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: "babel-loader",
-                query: {
-                    presets:[ 'latest', 'react', 'stage-2' ]
-                }
+                g
             },
             {
                 test: /\.scss$/,

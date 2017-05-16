@@ -57,7 +57,10 @@ class Branch
      * @ORM\OneToMany(targetEntity="Track", mappedBy="branch")
      */
     private $tracks;
-
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="branch")
+     */
+    private $students;
     /**
      * Get id
      *
@@ -203,5 +206,39 @@ class Branch
     public function getTracks()
     {
         return $this->tracks;
+    }
+
+    /**
+     * Add student
+     *
+     * @param \AppBundle\Entity\User $student
+     *
+     * @return Branch
+     */
+    public function addStudent(\AppBundle\Entity\User $student)
+    {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \AppBundle\Entity\User $student
+     */
+    public function removeStudent(\AppBundle\Entity\User $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }
