@@ -116,7 +116,7 @@ class AttendanceController extends FOSRestController
   }
 
   // get track students absenece reports
-  public function getStudentsAbsenceAction(Request $request,$trackId)
+  public function getTrackAbsenceAction(Request $request,$trackId)
   {
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
     $results = $repository->findBy(array('trackId' => $trackId));
