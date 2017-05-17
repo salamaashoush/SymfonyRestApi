@@ -5,7 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             {% if production == true %}
-                {#{% webpack_entry_css 'main' %}#}
+                {% webpack_entry_css 'main' %}
             {% endif %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
