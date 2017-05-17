@@ -61,6 +61,13 @@ class User extends BaseUser implements JWTUserInterface
      */
     private $branch;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="accAbsencePoints", type="integer",nullable = true)
+     */
+    private $accAbsencePoints = 0;
+
     public function __construct()
     {
         parent::__construct();
@@ -191,18 +198,39 @@ class User extends BaseUser implements JWTUserInterface
     }
 
     /**
-     * Set branchId
+     * Set accAbsencePoints
      *
-     * @param integer $branchId
+     * @param integer $accAbsencePoints
      *
      * @return User
      */
-    public function setBranchId($branchId)
+    public function setAccAbsencePoints($accAbsencePoints)
     {
-        $this->branchId = $branchId;
-
-        return $this;
+        $this->accAbsencePoints = $accAbsencePoints;
     }
+
+    /**
+     * Get accAbsencePoints
+     *
+     * @return integer
+     */
+    public function getAccAbsencePoints()
+    {
+        return $this->accAbsencePoints;
+    }
+
+    /**
+    * Set branchId
+    *
+    * @param integer $branchId
+    *
+    * @return User
+    */
+   public function setBranchId($branchId)
+   {
+       $this->branchId = $branchId;
+       return $this;
+   }
 
     /**
      * Get branchId
