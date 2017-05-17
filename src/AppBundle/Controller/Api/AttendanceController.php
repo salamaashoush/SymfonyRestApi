@@ -106,8 +106,25 @@ class AttendanceController extends FOSRestController
     }
   }
 
-  // get student absenece report
-  public function getStudentAbsenceAction(User $student,Request $request)
+  // stuent get his/her absenece report
+  public function getStudentAbsenceAction(Request $request)
+  {
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    $user_id = $user->getId();
+    $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
+    $results = $repository->findBy(array('userId' => $user_id));
+    $accAbsencePoints = $this->getDoctrine()->getRepository('AppBundle:User')->findOneById($user_id)->getAccAbsencePoints();
+    return $this->view(array('results' => $results,'$accAbsencePoints' => $accAbsencePoints));
+  }
+
+  // get max Absence points
+  public function getMaxAbsencePointsAction(Request $request){
+    $ruleRate = $this->getDoctrine()->getRepository('AppBundle:Rule')->findOneBy(array('absenceStatus' =>'Max Points'))->getRate();
+    return $ruleRate;
+  }
+
+  // admin get student absenece report
+  public function getStudentAbsenceReportAction(User $student,Request $request)
   {
     $user_id = $student->getId();
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
@@ -115,7 +132,7 @@ class AttendanceController extends FOSRestController
     return $results;
   }
 
-  // get track students absenece reports
+  // admin get track students absenece reports
   public function getTrackAbsenceAction(Request $request,$trackId)
   {
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
@@ -130,13 +147,11 @@ class AttendanceController extends FOSRestController
     $user_id = $user->getId();
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Attendance');
     $query = $repository->createQueryBuilder('p')->Where("p.status != 1")->getQuery();
-    $AbsentStudents = $query->getResult();
-    $RecordedAttendance = [];
+    $LateStudents = $query->getResult();
     // check if there's results
-    if($AbsentStudents)
+    if($LateStudents)
     {
-    foreach($AbsentStudents as $student) {
-      array_push($RecordedAttendance,$student->getUser()->getId());
+    foreach($LateStudents as $student) {
       $getDateformat = $student->getArrivalTime()->setTime(00,00,00);
       $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
       $absence = $repository->findOneBy(array('userId' =>$student->getUser()->getId(), 'trackId' => $student->getTrack()->getId(),'date' => $getDateformat));
@@ -178,11 +193,56 @@ class AttendanceController extends FOSRestController
       $student->getUser()->setAccAbsencePoints($accAbsencePoints);
       $em->flush();
     }
-    dump($RecordedAttendance);
-    die();
+    $em = $this->getDoctrine()->getManager();
+    $qb = $em->createQueryBuilder();
+    $qb->select('a', 'u')->from('AppBundle\Entity\User', 'a')
+        ->leftJoin(
+            'AppBundle\Entity\Students_Attendance',
+            'u',
+            \Doctrine\ORM\Query\Expr\Join::WITH,
+            'a.id = u.userId'
+        )
+        ->where('u.userId is null');
+    $AbsentStudents = $qb->getQuery()->getResult();
+    foreach($AbsentStudents as $student) {
+      if($student != null)
+      {
+      $TodayDate = new \Datetime();
+      $TodayDate = $TodayDate->setTime(00,00,00);
+      $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
+      $absence = $repository->findOneBy(array('userId' => $student->getId(), 'trackId' => $student->getTrack()->getId(),'date' => $TodayDate));
+      $accAbsencePoints = $em->getRepository('AppBundle:User')->findOneById($student->getId())->getAccAbsencePoints();
+      $ruleRate = 0;
+      if($absence)
+      {
+          $ruleRate = $absence->getRule()->getRate();
+      }else {
+        $rule = $this->getDoctrine()->getRepository('AppBundle:Rule')->findOneBy(array('absenceStatus' =>'Absence Without Permission'));
+        $ruleRate = $rule->getRate();
+        $studentAbsence = new Students_Absence();
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+        $user = $repository->findOneById($student->getId());
+        $studentAbsence->setUser($user);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Track');
+        $track = $repository->findOneById($student->getTrack()->getId());
+        $studentAbsence->setTrack($track);
+        $studentAbsence->setRule($rule);
+        $studentAbsence->setDate($TodayDate);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($studentAbsence);
+        $em->flush();
+      }
+      $accAbsencePoints += $ruleRate;
+      $student->setAccAbsencePoints($accAbsencePoints);
+      $em->flush();
+    }
+   }
+   $query = $em->createQuery('DELETE AppBundle:Students_Attendance');
+   $query->execute();
+    return $this->view(['Message' => 'your Attendance Submitted Successfully', 'Success' => true], Response::HTTP_CREATED);
    }
    else {
      return $this->view(['Message' => 'No Students Found','Success' => false], Response::HTTP_NOT_ACCEPTABLE);
    }
-  }
+ }
 }
