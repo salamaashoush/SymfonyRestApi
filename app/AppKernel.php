@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Endroid\QrCode\Bundle\EndroidQrCodeBundle(),
+            new mCzolko\HerokuSchedulerBundle\mCzolkoHerokuSchedulerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

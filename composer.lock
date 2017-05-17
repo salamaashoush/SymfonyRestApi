@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "54b79bf032202809c7ed05d30f6313aa",
+    "content-hash": "8e85c567510185f74282bfac8cfa0970",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1124,47 +1124,6 @@
             "time": "2017-03-29T13:21:34+00:00"
         },
         {
-            "name": "fullpipe/twig-webpack-extension",
-            "version": "v2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fullpipe/twig-webpack-extension.git",
-                "reference": "62751b8b6a0aed72b4ecfa005bd0aeaf96218681"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fullpipe/twig-webpack-extension/zipball/62751b8b6a0aed72b4ecfa005bd0aeaf96218681",
-                "reference": "62751b8b6a0aed72b4ecfa005bd0aeaf96218681",
-                "shasum": ""
-            },
-            "require": {
-                "twig/twig": "^1.20 || ^2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Fullpipe\\TwigWebpackExtension\\": "src/Fullpipe/TwigWebpackExtension/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eugene Bravov",
-                    "email": "eugene.bravov@gmail.com"
-                }
-            ],
-            "description": "Inject your webpack entry points into twig templates with easy.",
-            "keywords": [
-                "extension",
-                "twig",
-                "webpack"
-            ],
-            "time": "2017-04-20T09:53:55+00:00"
-        },
-        {
             "name": "incenteev/composer-parameter-handler",
             "version": "v2.1.2",
             "source": {
@@ -1648,6 +1607,45 @@
                 "symfony"
             ],
             "time": "2017-04-14T14:30:20+00:00"
+        },
+        {
+            "name": "mczolko/heroku-scheduler-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mCzolko/HerokuSchedulerBundle.git",
+                "reference": "251bca3c41319b63193654ecfff45a9e284d4244"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mCzolko/HerokuSchedulerBundle/zipball/251bca3c41319b63193654ecfff45a9e284d4244",
+                "reference": "251bca3c41319b63193654ecfff45a9e284d4244",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "mCzolko\\HerokuSchedulerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Czolko",
+                    "email": "michael@czolko.cz"
+                }
+            ],
+            "description": "Symfony HerokuSchedulerBundle",
+            "keywords": [
+                "Heroku Scheduler"
+            ],
+            "time": "2016-03-17T13:51:37+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3108,6 +3106,47 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "fullpipe/twig-webpack-extension",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fullpipe/twig-webpack-extension.git",
+                "reference": "62751b8b6a0aed72b4ecfa005bd0aeaf96218681"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fullpipe/twig-webpack-extension/zipball/62751b8b6a0aed72b4ecfa005bd0aeaf96218681",
+                "reference": "62751b8b6a0aed72b4ecfa005bd0aeaf96218681",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "^1.20 || ^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fullpipe\\TwigWebpackExtension\\": "src/Fullpipe/TwigWebpackExtension/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Bravov",
+                    "email": "eugene.bravov@gmail.com"
+                }
+            ],
+            "description": "Inject your webpack entry points into twig templates with easy.",
+            "keywords": [
+                "extension",
+                "twig",
+                "webpack"
+            ],
+            "time": "2017-04-20T09:53:55+00:00"
+        },
         {
             "name": "limenius/react-bundle",
             "version": "v0.12.0",
