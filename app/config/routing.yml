@@ -25,6 +25,10 @@ attendance:
     type:     rest
     resource: AppBundle\Controller\Api\AttendanceController
     prefix: /api
+#qrcode:
+#    type:     rest
+#    resource: AppBundle\Controller\Api\QRController
+#    prefix: /api
 
 #fos_user_security:
 #    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -45,10 +49,10 @@ attendance:
 #     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
 #     prefix: /profile
 
-EndroidQrCodeBundle:
-    resource: "@EndroidQrCodeBundle/Controller/"
-    type:     annotation
-    prefix:   /qrcode
+#EndroidQrCodeBundle:
+#    resource: "@EndroidQrCodeBundle/Controller/"
+#    type:     annotation
+#    prefix:   /qrcode
 app-web:
     resource: '@AppBundle/Controller/Web'
     type: annotation

@@ -1,11 +1,6 @@
 import React from 'react';
-class App extends React.Component{
-    render() {
-        return(
-            <div>
-               <h1>Salama</h1>
-            </div>
-        );
-    }
-}
-export default App;
+import AdminPage from './admin/AdminPage';
+
+export const App = () => (
+    <AdminPage />
+);

@@ -29,6 +29,10 @@ security:
                 pattern: ^/api/register
                 anonymous: true
                 stateless: true
+        qrcode:
+                pattern: ^/api/qrcode
+                anonymous: true
+                stateless: true
         api:
             pattern:   ^/api
             stateless: true
@@ -50,4 +54,5 @@ security:
 #        - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/qrcode,       roles:  IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles:  IS_AUTHENTICATED_FULLY }
