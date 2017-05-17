@@ -141,10 +141,8 @@ class AttendanceController extends FOSRestController
   }
 
   // background job
-  public function getCalcStudentsAttendanceAction(Request $request)
+  public function getCalcStudentsAttendanceAction()
   {
-    $user = $this->get('security.token_storage')->getToken()->getUser();
-    $user_id = $user->getId();
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Attendance');
     $query = $repository->createQueryBuilder('p')->Where("p.status != 1")->getQuery();
     $LateStudents = $query->getResult();
@@ -239,10 +237,64 @@ class AttendanceController extends FOSRestController
    }
    $query = $em->createQuery('DELETE AppBundle:Students_Attendance');
    $query->execute();
-    return $this->view(['Message' => 'your Attendance Submitted Successfully', 'Success' => true], Response::HTTP_CREATED);
+   dump('your Attendance Submitted Successfully');
+   die();
    }
    else {
-     return $this->view(['Message' => 'No Students Found','Success' => false], Response::HTTP_NOT_ACCEPTABLE);
+     dump('No Students Found');
+     die();
+   }
+ }
+
+ public function getpermissionsAction(Request $request){
+   $user = $this->get('security.token_storage')->getToken()->getUser();
+   $user_id = $user->getId();
+   $currentDate = new \Datetime();
+   $currentDate = $currentDate->setTime(00,00,00);
+   $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
+   $query = $repository->createQueryBuilder('p')->Where("p.userId = ".$user_id)
+    ->andWhere("p.date >= :curretDate")
+    ->andWhere("p.ruleId IN (:withPermissionsIds)")
+    ->setParameter('curretDate',$currentDate)
+    ->setParameter('withPermissionsIds', array_values([1,3,5]))
+    ->getQuery();
+   $Permissions = $query->getResult();
+   if ($Permissions){
+     return $Permissions;
+   }
+   else {
+     return $this->view(['Message' => 'No Permissions Submitted Recently','Success' => false],Response::HTTP_OK);
+   }
+ }
+
+ public function putPermissionAction(Request $request,$permissionId,$permissionStatus){
+   $permission = $this->getDoctrine()->getRepository('AppBundle:Students_Absence')->findOneById($permissionId);
+   if($permission)
+   {
+     $permissionRule = $permission->getRule()->getRate();
+     dump($permissionRule);
+     die();
+   }else {
+     return $this->view(['Message' => 'permission Not Exist','Success' => false], Response::HTTP_NOT_ACCEPTABLE);
+   }
+ }
+
+ public function deletePermissionAction(Request $request,$permissionId){
+   $user = $this->get('security.token_storage')->getToken()->getUser();
+   $user_id = $user->getId();
+   $permission = $this->getDoctrine()->getRepository('AppBundle:Students_Absence')->findOneBy(['id'=>$permissionId,'userId'=>$user_id]);
+   if($permission)
+   {
+     $em = $this->getDoctrine()->getManager();
+     /*$permissionRule = $permission->getRule()->getRate();
+     $userAccAbsencePoints = $user->getAccAbsencePoints();
+     $userAccAbsencePoints -= $permissionRule;
+     $user->setAccAbsencePoints($userAccAbsencePoints);*/
+     $em->remove($permission);
+     $em->flush();
+     return $this->view(['Message' => 'permission Deleted Successfully','Success' => true], Response::HTTP_OK);
+   }else {
+     return $this->view(['Message' => 'permission Not Exist','Success' => false], Response::HTTP_NOT_ACCEPTABLE);
    }
  }
 }
