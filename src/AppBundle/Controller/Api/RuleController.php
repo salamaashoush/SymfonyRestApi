@@ -41,6 +41,17 @@ class RuleController extends FOSRestController
             ->setHeader('X-Total-Count',$total));
     }
 
+    /**
+     * @param Rule $rule
+     * @return array
+     * @View()
+     * @ParamConverter("rule",class="AppBundle:Rule")
+     */
+    public function getRuleAction(Rule $rule)
+    {
+        return $rule;
+    }
+
 
     public function postRuleAction(Request $request)
     {
@@ -69,8 +80,8 @@ class RuleController extends FOSRestController
     {
         $data = json_decode($request->getContent(), true);
         $form = $this->createForm('AppBundle\Form\RuleType', $rule);
+        unset($data['id']);
         $form->submit($data,false);
-
         if ($form->isValid()) {
           $em = $this->getDoctrine()->getManager();
           $em->persist($rule);

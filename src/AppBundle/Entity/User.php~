@@ -49,6 +49,7 @@ class User extends BaseUser implements JWTUserInterface
      * @ORM\JoinColumn(name="track_id", referencedColumnName="id")
      */
     private $track;
+<<<<<<< HEAD
 
     /**
      * @var int
@@ -56,6 +57,19 @@ class User extends BaseUser implements JWTUserInterface
      * @ORM\Column(name="accAbsencePoints", type="integer",nullable = true)
      */
     private $accAbsencePoints;
+=======
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="branch_id", type="integer",nullable = true)
+     */
+    private $branchId;
+    /**
+     * @ORM\ManyToOne(targetEntity="Branch", inversedBy="students")
+     * @ORM\JoinColumn(name="branch_id", referencedColumnName="id")
+     */
+    private $branch;
+>>>>>>> d59a1e37c0de8a0524711dd67e4560fbafad2b39
 
     public function __construct()
     {

@@ -53,8 +53,9 @@ class SecurityController extends BaseController
             $userManager->updateUser($user);
 
             $response = new Response($this->serialize('User created.'), Response::HTTP_CREATED);
+            return $this->setBaseHeaders($response);
         }
-
+        $response = new Response($this->serialize($form), Response::HTTP_BAD_REQUEST);
         return $this->setBaseHeaders($response);
     }
     /**

@@ -17,3 +17,4 @@ $container->setParameter('jwt_private_key_path', '%kernel.root_dir%/../var/jwt/p
 $container->setParameter('jwt_public_key_path', '%kernel.root_dir%/../var/jwt/public.pem');
 $container->setParameter('jwt_key_pass_phrase', 'salama');
 $container->setParameter('jwt_token_ttl', 604800);
+$container->setParameter('use_webpack_dev_server', false);
