@@ -10,18 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/qr")
-     */
-    public function branchesAction()
-    {
-        $qrCode = $this->get('endroid.qrcode.factory')->create('QR Code', ['size' => 500]);
-        return $this->render(':default:qr.html.twig',['qr'=>$qrCode]);
-    }
-    /**
-     * @Route("/", name="homepage")
-     * @Route("/{slug}", name="homepage",requirements={"slug":".*"})
+     * @Route("/", name="admin_page")
+     * @Route("/{slug}", name="admin_page",requirements={"slug":".*"})
      * @param Request $request
-     * @param null $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request,$slug=null)
