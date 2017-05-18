@@ -90,6 +90,9 @@ class UserController extends FOSRestController
         unset($data['username_canonical']);
         unset($data['email_canonical']);
         unset($data['password']);
+        unset($data['last_login']);
+        unset($data['groups']);
+        unset($data['roles']);
         $form->submit($data, false);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
