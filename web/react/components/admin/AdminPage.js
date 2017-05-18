@@ -23,7 +23,7 @@ const httpClient = (url, options = {}) => {
     options.headers.set('Authorization', `JWT ${token}`);
     return fetchUtils.fetchJson(url, options);
 }
-const restClient = jsonServerRestClient('http://localhost:8000/api', httpClient);
+const restClient = jsonServerRestClient('https://itiattendance.herokuapp.com/api', httpClient);
 
 function arrayBufferToBase64(buffer) {
     var binary = '';
@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
     }
 
     count() {
-        this.setState({qrUrl: `http://localhost:8000/api/qrcode/${this.randomText(30)}`})
+        this.setState({qrUrl: `https://itiattendance.herokuapp.com/api/qrcode/${this.randomText(30)}`})
     }
 
     randomText(length) {

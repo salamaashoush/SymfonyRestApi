@@ -82,6 +82,7 @@ class BranchController extends FOSRestController
         $form = $this->createForm('AppBundle\Form\BranchType', $branch);
         unset($data['id']);
         unset($data['tracks']);
+        unset($data['students']);
         $form->submit($data,false);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

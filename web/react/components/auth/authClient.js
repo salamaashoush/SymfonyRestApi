@@ -3,7 +3,7 @@ import {AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK} from 'admin-on-rest';
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
         const { username, password } = params;
-        const request = new Request('http://localhost:8000/api/login', {
+        const request = new Request('https://itiattendance.herokuapp.com/api/login', {
             method: 'POST',
             body: JSON.stringify({ _username:username, _password:password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),
