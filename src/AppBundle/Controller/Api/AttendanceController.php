@@ -158,12 +158,16 @@ class AttendanceController extends FOSRestController
    $user_id = $user->getId();
    $currentDate = new \Datetime();
    $currentDate = $currentDate->setTime(00,00,00);
+   $repository = $this->getDoctrine()->getRepository('AppBundle:Rule');
+   $rules = $repository->createQueryBuilder('r')->select('r.id')->Where("r.absenceStatus IN (:status)")
+   ->setParameter('status', array_values(['Absence With Permission','Late With Permission','Leave With Permission']))
+   ->getQuery()->getResult();
    $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
    $query = $repository->createQueryBuilder('p')->Where("p.userId = ".$user_id)
     ->andWhere("p.date >= :curretDate")
     ->andWhere("p.ruleId IN (:withPermissionsIds)")
     ->setParameter('curretDate',$currentDate)
-    ->setParameter('withPermissionsIds', array_values([1,3,5]))
+    ->setParameter('withPermissionsIds', array_values($rules))
     ->getQuery();
    $Permissions = $query->getResult();
    if ($Permissions){
@@ -178,8 +182,8 @@ class AttendanceController extends FOSRestController
    $permission = $this->getDoctrine()->getRepository('AppBundle:Students_Absence')->findOneById($permissionId);
    if($permission)
    {
-     $permissionRule = $permission->getRule()->getRate();
-     dump($permissionRule);
+     $Rule = $permission->getRule();
+     dump($Rule);
      die();
    }else {
      return $this->view(['Message' => 'permission Not Exist','Success' => false], Response::HTTP_NOT_ACCEPTABLE);

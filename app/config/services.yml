@@ -13,7 +13,6 @@ services:
          - { name: form.type, alias: app_user_registration }
   heroku.scheduler:
           class: AppBundle\EventListener\HerokuSchedulerSubscriber
-          arguments: [@doctrine.orm.entity_manager]
           tags:
               - { name: herokue.scheduler, alias: app_heroku_scheduler }
 
