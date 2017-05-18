@@ -22,7 +22,7 @@ class HerokuSchedulerSubscriber implements EventSubscriberInterface
 {
 
     protected $em;
-    **
+    /**
     * @InjectParams({
     *    "em" = @Inject("doctrine.orm.entity_manager")
     * })
@@ -60,7 +60,7 @@ class HerokuSchedulerSubscriber implements EventSubscriberInterface
         }else {
           $status = $student->getStatus();
           $repository = $this->em->getRepository('AppBundle:Rule');
-          $rule;
+          $rule=null;
           $ruleRate = 0;
           switch ($status) {
             case 0:
@@ -135,12 +135,10 @@ class HerokuSchedulerSubscriber implements EventSubscriberInterface
      }
      $query = $this->em->createQuery('DELETE AppBundle:Students_Attendance');
      $query->execute();
-     dump('your Attendance Submitted Successfully');
-     die();
+        echo "worked";
      }
      else {
-       dump('No Students Found');
-       die();
+         echo "no students";
      }
     }
 }
