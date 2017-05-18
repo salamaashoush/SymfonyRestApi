@@ -35,11 +35,12 @@ class HerokuSchedulerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Events::DAILY       => 'daily'
+            Events::TEN_MINUTES  => 'tenminutes'
+            //Events::DAILY       => 'daily'
         ];
     }
 
-    public function daily()
+    public function tenminutes()
     {
       $repository = $this->em->getRepository('AppBundle:Students_Attendance');
       $query = $repository->createQueryBuilder('p')->Where("p.status != 1")->getQuery();
