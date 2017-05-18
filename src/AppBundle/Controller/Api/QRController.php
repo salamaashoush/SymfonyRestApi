@@ -24,7 +24,7 @@ class QRController extends Controller
         }else{
             $qr=$qr[0];
         }
-
+        date_default_timezone_set('Africa/Cairo');
         $qr->setStartDate(new \DateTime());
         $qr->setCode($code);
         $qr->setDuration(30);

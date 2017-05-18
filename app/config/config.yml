@@ -40,7 +40,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-        production: true
+        production: false
 
 # Doctrine Configuration
 doctrine:

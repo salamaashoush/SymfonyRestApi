@@ -137,7 +137,7 @@ class AttendanceController extends FOSRestController
   }
 
   // admin get student absenece report
-  public function getStudentAbsenceReportAction(User $student,Request $request)
+  public function getUsersAbsenceAction(User $student,Request $request)
   {
     $user_id = $student->getId();
     $repository = $this->getDoctrine()->getRepository('AppBundle:Students_Absence');
