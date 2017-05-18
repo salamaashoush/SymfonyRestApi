@@ -178,13 +178,29 @@ class AttendanceController extends FOSRestController
    }
  }
 
- public function putPermissionAction(Request $request,$permissionId,$permissionStatus){
+ public function putPermissionAction(Request $request,$permissionId){
    $permission = $this->getDoctrine()->getRepository('AppBundle:Students_Absence')->findOneById($permissionId);
    if($permission)
    {
-     $Rule = $permission->getRule();
-     dump($Rule);
-     die();
+     $data = json_decode($request->getContent(), true);
+     $rule = null;
+     $repository = $this->getDoctrine()->getRepository('AppBundle:Rule');
+     if ($data['permissonStatus'] == "Absent")
+     {
+       $rule = $repository->findOneBy(array('absenceStatus' =>'Absence With Permission'));
+     }elseif ($data['permissonStatus'] == "Late"){
+       $rule = $repository->findOneBy(array('absenceStatus' =>'Late With Permission'));
+     }else {
+       $rule = $repository->findOneBy(array('absenceStatus' =>'Leave With Permission'));
+     }
+     $permission->setRule($rule);
+     $permissonDate = new \Datetime($data['permissionDate']);
+     $permissonDate->setTime(00,00,00);
+     $permission->setDate($permissonDate);
+     $em = $this->getDoctrine()->getManager();
+     $em->persist($permission);
+     $em->flush();
+     return $this->view(['message' => 'your permission Updated Successfully', 'Success' => true], Response::HTTP_CREATED);
    }else {
      return $this->view(['Message' => 'permission Not Exist','Success' => false], Response::HTTP_NOT_ACCEPTABLE);
    }
